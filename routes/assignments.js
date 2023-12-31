@@ -15,7 +15,7 @@ function getAssignments(req, res){
 function getAssignment(req, res){
     let assignmentId = req.params.id;
 
-    Assignment.findOne({_id: assignmentId}, (err, assignment) =>{
+    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);
     })
@@ -24,6 +24,7 @@ function getAssignment(req, res){
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
     let assignment = new Assignment();
+    assignment.id = req.body.id;
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
     assignment.rendu = req.body.rendu;
@@ -33,11 +34,10 @@ function postAssignment(req, res){
 
     assignment.save( (err) => {
         if(err){
-            res.send(err);
-        } else {
-            res.json({ message: 'Assignment created!' });
+            res.send('cant post assignment ', err);
         }
-    });
+        res.json({ message: `${assignment.nom} saved!`})
+    })
 }
 
 // Update d'un assignment (PUT)

@@ -7,6 +7,9 @@ let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
 
+// Définir la route pour supprimer tous les devoirs
+app.delete('/api/assignments', assignment.deleteAllAssignments);
+
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
 // const uri = 'mongodb+srv://zouhair01:uefmi1rU88yedt4F@cluster0.ypln1c6.mongodb.net/assignments?retryWrites=true&w=majority';
 const uri = 'mongodb+srv://zouhair01:uefmi1rU88yedt4F@cluster0.ypln1c6.mongodb.net/assignments?retryWrites=true&w=majority';

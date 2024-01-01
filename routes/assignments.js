@@ -1,3 +1,4 @@
+//routes-assignement.js
 let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
@@ -36,7 +37,7 @@ function postAssignment(req, res){
         if(err){
             res.send('cant post assignment ', err);
         }
-        res.json({ message: `${assignment.nom} saved!`})
+        res.json({ message: `${assignment.nom} saved xd!`})
     })
 }
 
@@ -68,6 +69,20 @@ function deleteAssignment(req, res) {
     })
 }
 
+// Ajouter après les autres fonctions
 
+// Supprimer tous les assignments (DELETE)
+// Vos autres fonctions...
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+// Supprimer tous les assignments (DELETE)
+function deleteAllAssignments(req, res){
+    Assignment.deleteMany({}, (err) => {
+        if(err){
+            res.send(err)
+        } else {
+            res.send('Tous les devoirs ont été supprimés');
+        }
+    });
+}
+
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment, deleteAllAssignments };

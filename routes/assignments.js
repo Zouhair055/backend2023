@@ -3,11 +3,14 @@ let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
 function getAssignments(req, res){
-    Assignment.find((err, assignments) => {
+    // Récupérer les paramètres de pagination de la requête
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    
+    Assignment.paginate({}, { page, limit }, (err, assignments) => {
         if(err){
             res.send(err)
         }
-
         res.send(assignments);
     });
 }

@@ -1,5 +1,7 @@
+// assignment.js
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+let mongoosePaginate = require('mongoose-paginate-v2');
 
 let AssignmentSchema = Schema({
     id: Number,
@@ -8,5 +10,6 @@ let AssignmentSchema = Schema({
     rendu: Boolean
 });
 
-// C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
+AssignmentSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model('Assignment', AssignmentSchema);

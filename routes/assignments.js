@@ -2,18 +2,41 @@
 let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
-function getAssignments(req, res){
-    // Récupérer les paramètres de pagination de la requête
+
+//try
+// function getAssignments(req, res){
+//     // Récupérer les paramètres de pagination de la requête
+//     const page = parseInt(req.query.page) || 1;
+//     const limit = parseInt(req.query.limit) || 10;
+    
+//     Assignment.paginate({}, { page, limit }, (err, assignments) => {
+//         if(err){
+//             res.send(err)
+//         }
+//         res.send(assignments);
+//     });
+// }
+function getAssignments(req, res) {
+    // Récupérer les paramètres de pagination et de tri de la requête
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    
-    Assignment.paginate({}, { page, limit }, (err, assignments) => {
-        if(err){
-            res.send(err)
+    const sortField = req.query.sortField || 'dateDeRendu';
+    const sortOrder = parseInt(req.query.sortOrder) || 1; // 1 for ascending, -1 for descending
+
+    const options = {
+        page,
+        limit,
+        sort: { [sortField]: sortOrder },
+    };
+
+    Assignment.paginate({}, options, (err, assignments) => {
+        if (err) {
+            res.send(err);
         }
         res.send(assignments);
     });
 }
+
 
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
